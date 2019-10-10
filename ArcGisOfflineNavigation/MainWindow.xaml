@@ -1,0 +1,123 @@
+﻿<Window x:Class="ArcGisOfflineNavigation.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ArcGisOfflineNavigation"
+        xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+        mc:Ignorable="d"
+        Title="MainWindow" MinHeight="450" MinWidth="1024">
+    <Window.Resources>
+        <local:MapViewModel x:Key="MapViewModel"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="13*"/>
+        </Grid.RowDefinitions>
+        <Grid Background="#FF3E3E42">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+            <Grid>
+                <Image x:Name="DirectionImg" />
+            </Grid>
+            <Grid Grid.ColumnSpan="3">
+                <TextBlock x:Name="TripRequestTB" FontSize="18" Foreground="White" FontWeight="Bold" 
+                           Margin="5,10,0,0" Visibility="Hidden">
+                    Would you like to accept the following Trip?</TextBlock>
+            </Grid>
+            <Grid Grid.Column="1" Grid.ColumnSpan="2">
+                <TextBlock x:Name="DirectionLbl" TextWrapping="Wrap" FontSize="16" Foreground="White"></TextBlock>
+            </Grid>
+            <Grid Grid.Column="3">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="SpeedTB" Foreground="White"
+                Text="{Binding SpeedTB, Mode=OneWay, NotifyOnTargetUpdated=True}" Margin="10" FontSize="22" FontWeight="Bold">
+                    </TextBlock>
+                    <Label x:Name="SpeedLabel" Foreground="White" Margin="5,10,5,5" FontWeight="Bold" FontSize="13"
+                           HorizontalAlignment="Right">Km/h</Label>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Column="4">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="DistanceTB" Foreground="White"
+                Text="{Binding DistanceTB, Mode=OneWay, NotifyOnTargetUpdated=True}" Margin="10" FontSize="22" FontWeight="Bold">
+                    </TextBlock>
+                    <TextBlock x:Name="DistanceLbl" Foreground="White" Margin="5,15,5,5" FontWeight="Bold" FontSize="13"
+                           HorizontalAlignment="Right" 
+                           Text="{Binding DistanceLbl, Mode=OneWay, NotifyOnTargetUpdated=True}" />
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Column="5">
+                    <TextBlock x:Name="TimeTB" Foreground="White"
+                Text="{Binding TimeTB, Mode=OneWay, NotifyOnTargetUpdated=True}" Margin="10" FontSize="22" FontWeight="Bold">
+                    </TextBlock>
+            </Grid>
+            <Grid Grid.Column="6">
+                <Button x:Name="RefuseNavBtn" Background="#FFB94A5F" Foreground="White" FontSize="24" Visibility="Hidden"
+                        Click="RefuseNavBtn_Click">
+                    Refuse
+                </Button>
+            </Grid>
+            <Grid Grid.Column="7">
+                <Button x:Name="AcceptNavBtn" Background="#FF4ABB3E" Foreground="White" FontSize="24" Visibility="Hidden"
+                        Click="AcceptNavBtn_Click">
+                    Accept
+                </Button>
+                <Button x:Name="CancelNavBtn" Background="#FFB94A5F" Foreground="White" FontSize="24" Visibility="Hidden"
+                        Click="CancelNavBtn_Click">
+                    Cancel
+                </Button>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1">
+            <esri:MapView x:Name="EsriMapView" />
+            <esri:Compass AutoHide="False" Margin="20" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+            <Button x:Name="LocateBtn" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" BorderThickness="0" Margin="20"
+                    Click="LocateBtn_Click">
+                <Image Source="C:\Users\Yasser\source\repos\ArcGisOfflineNavigation\ArcGisOfflineNavigation\Icons\location.png"/>
+            </Button>
+            <StackPanel>
+                <StackPanel>
+                    <Button x:Name="ZoomInBtn" Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top"
+                            Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" BorderThickness="0" Margin="10,10,10,0" 
+                            Click="ZoomInBtn_Click">
+                        <Image Source="C:\Users\Yasser\source\repos\ArcGisOfflineNavigation\ArcGisOfflineNavigation\Icons\zoom in.png"/>
+                    </Button>
+                    <Button x:Name="ZoomOutBtn" Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top"
+                            Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" BorderThickness="0" Margin="10,0,10,10"
+                            Click="ZoomOutBtn_Click">
+                        <Image Source="C:\Users\Yasser\source\repos\ArcGisOfflineNavigation\ArcGisOfflineNavigation\Icons\zoom out.png"/>
+                    </Button>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="HeadingLabel">Heading:</Label>
+                    <TextBlock x:Name="HeadingTB"
+                Text="{Binding HeadingTB, Mode=OneWay, NotifyOnTargetUpdated=True}" Margin="5">
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="XLabel">X:</Label>
+                    <TextBlock x:Name="XTB"
+                Text="{Binding X, Mode=OneWay, NotifyOnTargetUpdated=True}" Margin="5">
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="YLabel">Y:</Label>
+                    <TextBlock x:Name="YTB"
+                Text="{Binding Path=Y, Mode=OneWay, NotifyOnTargetUpdated=True}" Margin="5">
+                    </TextBlock>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
