@@ -187,6 +187,7 @@ namespace ArcGisOfflineNavigation
 
         public async Task ConfigureStreetMapPremium()
         {
+        // Open the mmpk file
             string path = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Canada_Quebec.mmpk");
 
             try
